@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Posts;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,10 +22,9 @@ class HomeController extends Controller
      */
 
 
-    public function index(Request $request)
-    {
+    public function index() {
         return view('home.index', [
-            'posts' => Posts::latest()->filter(request(['search']))->paginate(6)
+            'posts' => Posts::latest()->filter(request(['tag', 'search']))->paginate(6)
         ]);
     }
 

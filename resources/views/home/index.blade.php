@@ -41,6 +41,7 @@
                             {{$posts->links()}}
                         </div>
                         <div class="pt-2">
+                            @unless(count($posts) == 0)
                         @foreach($posts as $post)
 
                             <div class="d-flex">
@@ -61,6 +62,9 @@
                             </div>
 
                     @endforeach
+                            @else
+                                <h1 class="p-2 m-auto fw-bold fs-1 text-center">no post found</h1>
+                            @endunless
                     </div>
                     <div class="mt-6 pb-2 p-3">
                         {{$posts->links()}}

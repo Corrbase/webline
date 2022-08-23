@@ -9,12 +9,14 @@ class Posts extends Model
 {
     use HasFactory;
 
-    public function scopeFilter($query, array $filters)
-    {
+    // protected $fiPostsllable = ['title', 'company', 'location', 'website', 'email', 'description', 'tags'];
 
-        if($filters['search'] ?? false)
-        {
-            $query->where('title', 'like', '%' . request('search') . '%')->orWhere('description', 'like', '%' . request('description') . '%');
+    public function scopeFilter($query, array $filters) {
+
+
+        if($filters['search'] ?? false) {
+            $query->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('description', 'like', '%' . request('search') . '%');
         }
     }
 
