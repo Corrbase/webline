@@ -26,7 +26,7 @@ class UserController extends Controller
     // requests
 
     public function registerR(Request $request){
-        if (get)
+
         $formFields = $request->validate([
             'name' => ['required', 'min:3'],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
@@ -35,6 +35,7 @@ class UserController extends Controller
 
         // Hash Password
         $formFields['password'] = bcrypt($formFields['password']);
+        $formFields['admin'] = false;
 
         // Create User
         $user = User::create($formFields);

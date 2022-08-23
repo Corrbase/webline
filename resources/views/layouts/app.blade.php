@@ -75,14 +75,17 @@
                                 </li>
 
                         @else
-
+                            <li class="nav-item">
+                                <a href="/create/post" class="nav-link"><i class="fa-solid fa-plus m-2"></i></i>Create post</a>
+                            </li>
                                 <li class="nav-item">
                                     <a href="/profile" class="nav-link"><i class="fa-solid fa-user m-2"></i>{{ auth()->user()->name }}</a>
                                 </li>
                             <li class="nav-item">
                                 <form action="/r/logout" method="post">
                                 @csrf
-                                <button href="" type="submit" class="nav-link"><i class="fa-solid fa-door-open m-2"></i>Logout</button>
+                                <button
+                                    href="" type="submit" class="nav-link"><i class="fa-solid fa-door-open m-2"></i>Logout</button>
                                 </form>
                             </li>
                         @endguest
