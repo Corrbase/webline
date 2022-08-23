@@ -45,8 +45,6 @@ git checkout <commit_hash>
 
 #### Resources:
 
-- [Laravel From Scratch 2022 | 4+ Hour Course](https://www.youtube.com/watch?v=MYyJ4PuL4pY)
-- [GitHub Repository](https://github.com/bradtraversy/laragigs)
 - [Common Resource Routes](#common-resource-routes)
 
 #### Common Resource Routes
@@ -59,3 +57,8 @@ git checkout <commit_hash>
 >update - update listing </br>
 >destroy - Delete listing </br>
 
+
+#### authors
+
+- [Corrbase](https://github.com/Corrbase)
+- [Boolfalse](https://github.com/boolfalse)
