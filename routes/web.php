@@ -15,14 +15,19 @@ use \Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/home', function (){return redirect('/');} );
 
 
-Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile')->middleware('auth');
+Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile')->middleware('auth');
 
 
 // User Route
 
-Route::get('/login', [\App\Http\Controllers\UserController::class, 'login'])->middleware('guest');
+Route::get('/login', [\App\Http\Controllers\UserController::class, 'login']);
 Route::get('/register', [\App\Http\Controllers\UserController::class, 'register'])->middleware('guest');
 
-Route::post('/r/register', [\App\Http\Controllers\UserController::class, 'store']);
+// Requests
+
+Route::post('/r/register', [\App\Http\Controllers\UserController::class, 'registerR']);
+Route::post('/r/login', [\App\Http\Controllers\UserController::class, 'loginR']);
+Route::post('/r/logout', [\App\Http\Controllers\UserController::class, 'logoutR']);

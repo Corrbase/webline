@@ -71,11 +71,11 @@
 
 
                                         <div class="pt-1 mb-4">
-                                            <button class="btn btn-dark btn-lg btn-block" type="submit">register</button>
+                                            <button class="btn btn-outline-danger" type="submit">register</button>
 
                                         </div>
 
-                                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Alredy have an account <a href="/login" style="color: #393f81;">Register here</a></p>
+                                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Alredy have an account <a href="/login" style="color: red;">login here</a></p>
                                     </form>
 
                                 </div>

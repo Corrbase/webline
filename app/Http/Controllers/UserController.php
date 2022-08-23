@@ -18,9 +18,15 @@ class UserController extends Controller
         return view('users.register');
     }
 
+    public function profile()
+    {
+        return view('users.profile');
+    }
+
     // requests
 
-    public function store(Request $request){
+    public function registerR(Request $request){
+        if (get)
         $formFields = $request->validate([
             'name' => ['required', 'min:3'],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
@@ -36,7 +42,32 @@ class UserController extends Controller
         // Login
         auth()->login($user);
 
-        return redirect('/')->with('message', 'You are logged in');
+        return redirect('/profile')->with('message', 'You are logged in');
     }
+
+    public function loginR(Request $request)
+    {
+        $formFields = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => 'required'
+        ]);
+
+        if(auth()->attempt($formFields)) {
+//            $request->session()->regenerate();
+
+            return redirect('/')->with('message', 'You are now logged in!');
+        }
+
+        return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
+    }
+
+    public function logoutR(Request $request){
+        auth()->logout();
+
+
+        return redirect('/')->with('message', 'You have been logged out!');
+    }
+
+
 
 }
