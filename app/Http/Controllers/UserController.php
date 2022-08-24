@@ -38,7 +38,7 @@ class UserController extends Controller
         ]);
 
         // Hash Password
-        $formFields['password'] = bcrypt($formFields['password']);
+        $formFields['password'] = md5($formFields['password']);
         $formFields['admin'] = false;
 
         // Create User
@@ -71,6 +71,26 @@ class UserController extends Controller
 
 
         return redirect('/')->with('message', 'You have been logged out!');
+    }
+
+    public function update(Request $request){
+        $pass = md5($request->oldPassword);
+//        dd($pass, auth()->user()->password);
+        if ($pass !== auth()->user()->password){
+            return back()->with('message', 'old password is wrong');
+        }else
+            $data = $request->validate([
+                'name' => 'required',
+            ]);
+        if ($request->password){
+            $data =  $request->validate([
+                'name' => 'required',
+                'password' => 'min:6',
+            ]);
+        }
+        auth()->user()->update($data);
+
+        return back()->with('message', 'update is successfully');
     }
 
 

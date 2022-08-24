@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Posts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class PostsController extends Controller
@@ -21,6 +23,14 @@ class PostsController extends Controller
             abort(403, 'Unauthorized Action');
         }
         return view('posts.edit', ['posts' => $posts]);
+    }
+
+    public function delete(Posts $posts){
+
+        if($posts->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
+        return view('posts.delete', ['posts' => $posts]);
     }
 
     //Show single listing
@@ -49,6 +59,7 @@ class PostsController extends Controller
         $data['user_id'] = auth()->id();
         $imagePath = request('image')->store('uploads', 'public');
         $data['image'] = $imagePath;
+        $data['author'] = auth()->user()->name;
 
 
 
@@ -72,7 +83,18 @@ class PostsController extends Controller
             $data['image'] = $imagePath;
         }
 
+        Storage::disk('public')->delete($posts->image);
         $posts->update($data);
+        return back()->with('message', 'Listing deleted successfully');
+    }
+
+    public function destroy(Posts $posts)
+    {
+        if($posts->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
+        Storage::disk('public')->delete($posts->image);
+        $posts->delete();
         return redirect('/profile')->with('message', 'update is successfully');
     }
 

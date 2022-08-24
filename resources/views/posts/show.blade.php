@@ -20,7 +20,7 @@
                                     <div class="d-flex">
                                         <div class="col-6 pb-4 d-flex">
                                             <a href="">
-                                                <img src="https://static.vecteezy.com/packs/media/vectors/term-bg-1-666de2d9.jpg" class="w-100">
+                                                <img src="/storage/{{$posts->image}}" style="width: 720px; height: 400px; object-fit: cover"  class="w-100">
                                             </a>
                                         </div>
                                         <div class="p-2">
@@ -33,6 +33,8 @@
                                     </div>
                                     <div class="fs-5">
                                         <p>{{ $posts->description }}</p>
+
+                                        <p class="pt-2 text-muted">author - {{$posts->author}}</p>
                                     </div>
 
                         </div>
