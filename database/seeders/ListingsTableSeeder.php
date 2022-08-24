@@ -16,8 +16,9 @@ class ListingsTableSeeder extends Seeder
             Posts::create([
                 'user_id' => 1,
                 'title' => $faker_en->sentence(2, true),
+                'image' => '',
                 'short' => $faker_en->sentence(rand(10, 20)),
-                'description' => $faker_en->sentence(rand(40, 80), true),
+                'description' => $faker_en->sentence(rand(100, 400), true),
             ]);
         }
     }

@@ -8,10 +8,8 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card ">
-                    <div class="card-header bg-danger text-light">
-
-                    </div><form action="/" >
+                <div class=" ">
+                    <form action="/" >
                         <div class="relative border-2 border-gray-100 m-3 rounded-lg">
                             <div class="absolute top-4 left-3">
                                 <i
@@ -56,7 +54,7 @@
                                         <p class="text-muted mt-2">{{ $post->short }}</p>
                                     </div>
                                     <div class="mt-2">
-                                        <button class="btn btn-outline-danger" type="button">Go to post</button>
+                                        <a href="/posts/{{ $post->id }}" class="btn btn-outline-danger" type="button">Go to post</a>
                                     </div>
                                 </div>
                             </div>

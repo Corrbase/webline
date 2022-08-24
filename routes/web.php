@@ -21,16 +21,19 @@ Route::get('/home', function (){return redirect('/');} );
 
 // Post Route
 
-Route::get('/create/post', [App\Http\Controllers\UserController::class, 'create'])->middleware('auth');
+
+Route::get('/posts/create', [App\Http\Controllers\PostsController::class, 'create'])->middleware('auth');
+Route::get('/posts/{posts}', [App\Http\Controllers\PostsController::class, 'post']);
 
 // User Route
 
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile')->middleware('auth');
-Route::get('/login', [\App\Http\Controllers\UserController::class, 'login'])->middleware('guest');
+Route::get('/login', [\App\Http\Controllers\UserController::class, 'login'])->name('login')->middleware('guest');
 Route::get('/register', [\App\Http\Controllers\UserController::class, 'register'])->middleware('guest');
 
 // Requests
 
 Route::post('/r/register', [\App\Http\Controllers\UserController::class, 'registerR']);
 Route::post('/r/login', [\App\Http\Controllers\UserController::class, 'loginR']);
+Route::post('/r/post', [\App\Http\Controllers\PostsController::class, 'postR']);
 Route::post('/r/logout', [\App\Http\Controllers\UserController::class, 'logoutR']);
