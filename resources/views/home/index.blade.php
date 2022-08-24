@@ -45,7 +45,7 @@
                             <div class="d-flex">
                                 <div class="col-3 pb-4 d-flex">
                                     <a href="">
-                                        <img src="https://static.vecteezy.com/packs/media/vectors/term-bg-1-666de2d9.jpg" class="w-100">
+                                        <img src="storage/{{ $post->image }}" class="w-100" style="width: 250px; height: 250px; object-fit: cover">
                                     </a>
                                 </div>
                                 <div class="p-2">

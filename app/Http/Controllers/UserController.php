@@ -22,7 +22,9 @@ class UserController extends Controller
 
     public function profile()
     {
-        return view('users.profile');
+        $posts = Posts::latest()->where('user_id', auth()->id())->paginate(5);
+
+        return view('users.profile', ['posts' => $posts]);
     }
 
     // requests
