@@ -6,6 +6,8 @@ use App\Models\Listing;
 use App\Models\Posts;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateProfileRequest;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -29,7 +31,7 @@ class UserController extends Controller
 
     // requests
 
-    public function registerR(Request $request){
+    public function register_r(Request $request){
 
         $formFields = $request->validate([
             'name' => ['required', 'min:3'],
@@ -38,7 +40,7 @@ class UserController extends Controller
         ]);
 
         // Hash Password
-        $formFields['password'] = md5($formFields['password']);
+        $formFields['password'] = bcrypt($formFields['password']);
         $formFields['admin'] = false;
 
         // Create User
@@ -50,7 +52,7 @@ class UserController extends Controller
         return redirect('/profile')->with('message', 'You are logged in');
     }
 
-    public function loginR(Request $request)
+    public function login_r(Request $request)
     {
         $formFields = $request->validate([
             'email' => ['required', 'email'],
@@ -66,28 +68,29 @@ class UserController extends Controller
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
     }
 
-    public function logoutR(Request $request){
+    public function logout_r(Request $request){
         auth()->logout();
 
 
         return redirect('/')->with('message', 'You have been logged out!');
     }
 
-    public function update(Request $request){
-        $pass = md5($request->oldPassword);
-//        dd($pass, auth()->user()->password);
-        if ($pass !== auth()->user()->password){
-            return back()->with('message', 'old password is wrong');
-        }else
-            $data = $request->validate([
-                'name' => 'required',
-            ]);
-        if ($request->password){
-            $data =  $request->validate([
-                'name' => 'required',
-                'password' => 'min:6',
-            ]);
+    public function update(UpdateProfileRequest $request)
+    {
+        $data = $request->only([
+            'name',
+        ]);
+
+        $password = $request->get('password');
+        if ($password)
+        {
+            if (Hash::check($request->get('oldPassword'), auth()->user()->password)) {
+                $data['password'] = $password;
+            } else {
+                return back()->with('message', 'old password is wrong');
+            }
         }
+
         auth()->user()->update($data);
 
         return back()->with('message', 'update is successfully');

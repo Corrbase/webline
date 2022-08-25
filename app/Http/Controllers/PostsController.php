@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -33,22 +34,20 @@ class PostsController extends Controller
         return view('posts.delete', ['posts' => $posts]);
     }
 
-    //Show single listing
+    public function post(Posts $posts, Comment $comment) { // show post
 
-    public function post(Posts $posts) {
-//        if ($post->user_id == auth()->id());{
-//            return redirect('/profile');
-//        }
+        $comments = Comment::latest()->where('post_id', $posts->id)->paginate(5);
 
-        if ($posts->user_id)
+
         return view('posts.show', [
-            'posts' => $posts
+            'posts' => $posts,
+            'comments' => $comments,
         ]);
     }
 
     // request
 
-    public function postR(Request $request){
+    public function post_r(Request $request){
         $data = $request->validate([
             'title' => ['required', 'min:3', 'max:50'],
             'short' => 'required|min:20',
@@ -57,7 +56,9 @@ class PostsController extends Controller
         ]);
 
         $data['user_id'] = auth()->id();
-        $imagePath = request('image')->store('uploads', 'public');
+        $image = $request->file('image');
+        $imagePath = $image->store('uploads', 'public');
+
         $data['image'] = $imagePath;
         $data['author'] = auth()->user()->name;
 

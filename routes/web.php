@@ -35,11 +35,19 @@ Route::get('/register', [\App\Http\Controllers\UserController::class, 'register'
 
 // Requests
 
-Route::post('/r/register', [\App\Http\Controllers\UserController::class, 'registerR']);
-Route::post('/r/login', [\App\Http\Controllers\UserController::class, 'loginR']);
-Route::post('/r/logout', [\App\Http\Controllers\UserController::class, 'logoutR']);
+Route::post('/r/register', [\App\Http\Controllers\UserController::class, 'register_r']);
+Route::post('/r/login', [\App\Http\Controllers\UserController::class, 'login_r']);
+Route::post('/r/logout', [\App\Http\Controllers\UserController::class, 'logout_r']);
 Route::put('/r/edit', [\App\Http\Controllers\UserController::class, 'update']);
 
-Route::post('/r/post', [\App\Http\Controllers\PostsController::class, 'postR']);
+Route::post('/r/post', [\App\Http\Controllers\PostsController::class, 'post_r']);
 Route::put('/r/post/{posts}', [\App\Http\Controllers\PostsController::class, 'update']); // update the post
 Route::delete('/r/posts/delete/{posts}', [\App\Http\Controllers\PostsController::class, 'destroy']);
+
+Route::post('/r/comment/{posts}', [\App\Http\Controllers\CommentController::class, 'create'])->middleware('auth');
+
+
+
+Route::fallback(function () {
+    abort(404);
+});
